@@ -181,6 +181,12 @@ body{
     justify-content: center;
   }
 }
+
+/*crea el efecto de boton a las imagenes de teclas*/
+[class~='tecla']:active {
+    transform : perspective(600px) translateZ(-75px) rotateZ(-0.5deg) rotateX(-10deg);
+}
+
 @media (max-width: 450px){
 
   #calculadoraFondo{

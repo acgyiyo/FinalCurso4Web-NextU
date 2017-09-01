@@ -1,12 +1,15 @@
 // Alejandro Cuervo G
 
 var Calculadora=(function(){
+  //propiedades
   var display = null;
   var resultado = 0;
   var memoria1 = '0';
   var memoria2 = '0';
   var operacion = '';
+  var resultado = 'operado';
 
+  //metodos
   var encender = function(){
     display.innerHTML = '0';
     memoria1='0';
@@ -19,34 +22,22 @@ var Calculadora=(function(){
   }
   var dividir = function(){
     operacion='dividir';
-    preOperar2();
+    preOperar();
   }
   var multiplicar = function(){
     operacion='multiplicar';
-    preOperar2();
+    preOperar();
   }
   var restar = function(){
     operacion='restar';
-    preOperar2();
+    preOperar();
   }
   var sumar = function(){
     operacion='sumar';
-    if(memoria2=='0'){
-      preOperar();
-    }else{
-      memoria2 = operar(memoria2,memoria1,operacion);
-      memoria1='0';
-      display.innerHTML='0';
-    }
+    preOperar();
   }
 
   function preOperar(){
-    memoria2=memoria1;
-    memoria1='0';
-    display.innerHTML='0';
-  }
-
-  function preOperar2(){
     if(memoria2=='0'){
       memoria2=memoria1;
       memoria1='0';
@@ -80,7 +71,7 @@ var Calculadora=(function(){
   var punto = function(){
     var punto=memoria1.indexOf('.',0);
 
-    if(punto==-1 && memoria1!='0'){
+    if(punto==-1){
       imprimirPantalla('.');
     }
   }
@@ -93,10 +84,13 @@ var Calculadora=(function(){
     }else{
       display.innerHTML = memoria1;
     }
-    memoria1 = '0'; memoria2 = '0';
+    //memoria1 = '0'; memoria2 = '0';
+    //memoria1=memoria2;
+    resultado='operado';
   }
 
   var imprimirPantalla = function(caracter){
+    if(resultado=='operado'){memoria1='0';memoria2='0';resultado='';}
     if(memoria1=='0'){
       if(caracter!=0){
         memoria1=String(caracter);
@@ -132,7 +126,8 @@ var Calculadora=(function(){
     document.getElementById('igual').addEventListener('click',igual);
   }
 
-  return{
+
+  return{//inicializar
     init: function(){
       iniciarListeners();
       display=document.getElementById('display');
